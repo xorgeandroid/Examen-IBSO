@@ -1,0 +1,23 @@
+SELECT 
+    FDOC.DNUM AS "# de ticket",
+    FDOC.DFECHA AS "Fecha",
+    FDOC.DCANT AS "Monto sin IVA",
+    (FDOC.DCANT + FDOC.DIVA) AS "Monto con IVA",
+    FDOC.DPAR1 AS "Vendedor",
+    FCLI.CLINOM AS "Cliente",
+    FAXINV.ICOD AS "Productos comprados (SKU)",
+    FINV.IDESCR AS "Descripción",
+    FAXINV.AIPZAS AS "Cantidad (unidades)",
+    FAXINV.AIALMACEN AS "Almacén que vendió",
+    FINV.ILISTA3 AS "Precio de lista",
+    FINV.IFAM3 AS "Talla",
+    FINV.IFAM4 AS "Color",
+    FINV.IFAM5 AS "Temporada"
+FROM 
+    FDOC
+JOIN 
+    FAXINV ON FDOC.DNUM = FAXINV.FMOV
+JOIN 
+    FCLI ON FDOC.CLICOD = FCLI.CLICOD
+JOIN 
+    FINV ON FAXINV.ICOD = FINV.ICOD;
